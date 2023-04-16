@@ -1,0 +1,31 @@
+ apiVersion: core.napptive.com/v1alpha1
+ # Required
+ kind: ApplicationMetadata 
+ # Specifies name for the application
+ name: "owncloud"
+ # Version of your application
+ version: 1.0 
+ # Short description for your application
+ description: "This application is for deploying an owncloud instance"
+ # Related keywords for SEO.
+ keywords: 
+   - cloud_storage
+   - file_synchronization
+   - file_sharing
+   - data_privacy
+   - collaborative_editing
+   - webdav
+   - encryption
+   - versioning
+   - remote_access
+   - self-hosted.  
+ # Provide license
+ license: "ownCloud License Version 3.0"
+ # url and doc 
+ url: "https://hub.docker.com/_/owncloud"
+ doc: "https://owncloud.com/docs-guides/"
+ # Logo for your application
+ logo:
+   - src: "https://download.logo.wine/logo/OwnCloud/OwnCloud-Logo.wine.png"
+     type: "image/png"
+     size: "120x120"

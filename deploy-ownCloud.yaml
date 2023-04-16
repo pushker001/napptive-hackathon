@@ -1,0 +1,41 @@
+ apiVersion: core.oam.dev/v1beta1
+ kind: Application
+ metadata:
+   # Name of the application which will be used to refer to it once deployed.
+   name: owncloud
+ spec:
+   # List of components that are part of the application.
+   components:
+       # Each component must have a name. The name will be used during the translation process
+       # to Kubernetes entities.
+     - name: owncloud
+       # Each component is associated with a type. The type works as a template and defines
+       # how a high-level component will be translated into Kubernetes.
+       # The type is set as webservice as we need api endpoint to access the pods.
+       type: webservice
+       # Properties that can be configured for the user. This can be use to set the parameters
+       # that are defined by the component type.
+       # Specify image link here. By default it fetches from docker hub repository.
+       properties:
+         image: owncloud:latest
+         ports: 
+             # This is the default port that is used by owncloud.
+           - port: 80
+             expose: true 
+         # These environment variables are required by OwnCloud image
+         # visit https://hub.docker.com/_/owncloud for getting more information on environment variables and ports
+         env:
+           - name: owncloud_admin_username
+             value: admin 
+           - name: owncloud_admin_password
+             value: password
+       # Traits are extensions that augment the capabilities of a component. For example,
+       # changing the replication, importing a config map, etc.
+       # napptive-ingress exposes component to the outside world, for our case it is CouchDB.
+       # napptive-ingress is a customised ingress provider (it will work only with Napptive platform, for alternative, use gateway trait if you are using Kubevela)
+       traits:
+         - type: napptive-ingress
+           properties:
+             name: nginx-ingress
+             port: 80
+             path: /
